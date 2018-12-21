@@ -1,0 +1,57 @@
+@model ProductCategoryBundle
+<!-- Insert Model Here -->
+<div class="row justify-content-center">
+    <div class="col-lg-10 rounded justify-content-center m-4 bg-white text-center">
+        <h1 class="mt-4 mb-5">@Model.Product.Name</h1>
+        <div class="row justify-content-center m-3">
+            <div class="col-6 border-right text-center">
+                <h3 class="mb-4">Categories:</h3>
+                <div class="row m-1 justify-content-start text-left">
+                    <table class="table table-borderless ml-5">
+                        <tbody>
+                            @if(Model.Product.Associations == null)
+                            {
+
+                            }
+                            else
+                            {
+                                @foreach(var asc in Model.Product.Associations)
+                                {
+                                    <tr>
+                                        <td>&#8226 @asc.Category.Name</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-6 border-left text-center">
+                <form asp-action="CategoryLink" asp-controller="Main" method="POST">
+                <input type="hidden" name="ProductId" value="@Model.Product.ProductId">
+                    <label for="CategoryId"><h3 class="mb-4">Add Category:</h3></label>
+                    <div class="form-row m-1 justify-content-center">
+                        <div class="col-8 text-left mb-3">
+                            <select name="CategoryId" class="w-100">
+                            @if(Model.CategoriesList == null)
+                            {
+
+                            }
+                            else
+                            {
+                                @foreach(var category in Model.CategoriesList)
+                                {
+                                    <option value="@category.CategoryId">@category.Name</option>
+                                }
+                            }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 mb-4 justify-content-center">
+                        <button type="submit" class="btn btn-primary mt-2">Add Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
